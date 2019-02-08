@@ -1,0 +1,35 @@
+\documentclass[a4paper,11pt]{uos-thesis}
+
+\include{Glossary/glossary} % Glossary
+
+\begin{document}
+
+\frontmatter
+\include{Title/title}
+\include{Declaration/declaration}
+\include{Quote/quote}
+\include{Abstract/abstract}
+\include{Acknowledgements/acknowledgements}
+\include{Nomenclature/nomenclature}
+\tableofcontents
+\listoffigures
+\listoftables
+\printglossary
+\printnomenclature
+\include{Latin/latin}
+
+\mainmatter
+\include{Chapters/Chapter1/chapter1} % Introduction
+\include{Chapters/Chapter2/chapter2} % Chapter 2
+\include{Chapters/Chapter3/chapter3} % Chapter 3
+%\include{Chapters/Chapter4/chapter4} % To include chapter 4 create a Tex file
+% The thesis can be compiled with only a subsection of the chapters
+
+\appendix
+\include{Appendices/appendixA} % Appendix 1
+%\include{Appendices/appendixB} % Appendix 2
+
+\backmatter
+\include{Bibliography/bibliography}
+
+\end{document}

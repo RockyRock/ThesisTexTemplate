@@ -1,0 +1,265 @@
+%*******************************************************************************
+%********************************* Appendix B **********************************
+%*******************************************************************************
+\chapter{Graph Theory}
+\chaptermark{Graph Theory}
+\label{AppendixB}
+
+\section{Introduction}
+
+Multiple real life situations can be modelled by a set of vertices connected together by edges, this representation is called a graph. Graph theory is a field of discrete mathematics that has been developed in order to provide the tools to analyse and solve problems involving graphs, subsequently providing answers to the real life situations they represent \citep{Diestel2000,Bondy2008}. Graphs can be undirected, directed, and even weighted based on the type of situation that is modelled. A given graph $\mathcal{G}$ is defined by an ordered pair of elements, including a set of vertices $V$ and a set of edges $E$ such that, 
+
+\begin{equation} \label{eqnB.1}
+\mathcal{G} = (V,E).
+\end{equation}
+
+The set of edges $E$ is composed of pairs of vertices taken from the set $V$ that can be directed and even weighted in some cases. Graphs can also be defined by their incidence or adjacency matrices. The incidence matrix of an undirected graph is a rectangle matrix whose rows represent the vertices and whose columns represent the edges, its entries are positive integers representing the number of times a vertex and an edge are incident. The adjacency matrix is a square matrix with rows and columns labelled after the vertices and composed of binaries. When an entry is equal to $1$, it indicates the presence of an edge between the vertices corresponding to the row and column indexes, whereas a $0$ entry  means that there is no direct link between these two particular vertices. A graph is said to be disconnected if its vertices can be partitioned into two distinct subsets that do not share any edges, otherwise a graph is said to be connected.
+
+\section{Undirected Graphs}
+
+An undirected graph also called simple graph is a graph where the edges are not oriented, therefore, the edge $\{1,2\}$ is the same as the edge $\{2,1\}$. A direct consequence of this is that for an undirected graph with $n$ vertices the maximum number of edges is $\frac{n(n-1)}{2}$ if loops are not considered and $\frac{n(n+1)}{2}$ with loops. Two vertices linked by an edge are said to be adjacent, and a vertex is said to be incident with an edge and vice versa. Subsequently, a graph can be defined by its incidence matrix or adjacency matrix. The adjacency matrix of a simple graph is a symmetric binary matrix, the Figure \ref{figB.1} represents a simple undirected graph with $10$ vertices.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=4,
+	vertex/.style={draw,circle,minimum size=0.75cm,inner sep=0pt},
+	arc/.style={draw=blue!#10,thick,->},
+	arc label/.style={fill=white,circle,font=\tiny,inner sep=1pt},
+	loop arc/.style={min distance=2mm,looseness=8}]
+	\foreach [count=\i] \coord in
+							{(1.000,0.000),
+							 (0.809,0.588),
+							 (0.309,0.951),
+							 (-0.309,0.951),
+							 (-0.809,0.588),
+							 (-1.000,0.000),
+							 (-0.809,-0.588),
+							 (-0.309,-0.951),
+							 (0.309,-0.951),
+							 (0.809,-0.588)}
+							 {
+				\node[vertex] (p\i) at \coord {\i};
+		}
+		\graphfromadj[bend left=0]{p}{{0,0,0,0,10,0,0,0,0,10},
+										{10,0,0,0,0,10,0,0,0,0},
+										{0,10,0,0,0,0,10,0,0,0},
+										{0,0,10,0,0,0,0,10,0,0},
+										{0,0,0,10,0,0,0,0,10,0},
+										{0,0,0,0,10,0,0,0,0,10},
+										{10,0,0,0,0,10,0,0,0,0},
+										{0,10,0,0,0,0,10,0,0,0},
+										{0,0,10,0,0,0,0,10,0,0},
+										{0,0,0,10,0,0,0,0,10,0}}{36}{30}{1}
+\end{tikzpicture}
+\caption{Example of an undirected graph.}
+\label{figB.1}
+\end{figure}
+
+The adjacency matrix representation is not unique and any permutations of a row and a column with equal indexes will yield the same graph by changing the vertex labels. A possible adjacency matrix $\mathcal{A}$ for the graph presented in Figure \ref{figB.1} is as follows,
+
+\begin{equation} \label{eqnB.2}
+\mathcal{A}=
+\begin{bmatrix}
+0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 \\
+1 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 \\
+0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 & 0 & 1 \\
+1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 \\
+1 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 \\
+0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 & 0 & 1 \\
+1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 & 0
+\end{bmatrix}
+\end{equation}
+
+Similarly, a graph can be defined by its incidence matrix $\mathcal{I}$. This kind of matrix links each edge to the two vertices it connects. The incidence matrix of the graph \ref{eqnB.1} is presented in equation \eqref{eqnB.3}. It can be noted that the adjacency matrix does not have to be symmetric or even square since the number of edges can be different from the number of vertices. In the same way as for the adjacency matrix, any permutations of the rows and the columns will represent the same graph after changing the labels of the vertices and of the edges respectively. Very often graphs have a lot more edges than vertices, subsequently in most cases the adjacency matrix constitutes a more compact way to store a graph than the incidence matrix. Hence, it is the preferred representation in most cases.
+
+\begin{equation} \label{eqnB.3}
+\mathcal{I}^{\top}=
+\begin{bmatrix}
+1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 \\
+1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+
+Graphs are mathematical objects used to represent a given topology and consequently, the relative position of the vertices as well as the shape of the edges does not change the topological properties of a given graph. However, only plotting the undirected edges between a set of vertices can be insufficient sometimes, and in some cases associating an edge with a specific direction can carry some useful meaning. This property is achieved for the directed graphs and presented within the next section.
+
+\section{Directed Graphs}
+
+Each edge of a simple graph can be oriented from a vertex towards another in order to define a directed graph. An edge is called a loop if it connects a vertex to itself. A directed graph also called a digraph does not usually include any loops or parallel edges (multiple edges from and to the same vertex). The graph presented in Figure \ref{figB.2} corresponds to the oriented adjacency matrix $\mathcal{A}$ given equation \eqref{eqnB.4}. In this case the adjacency matrix is still square and composed of binaries entries but does not have to be symmetric any more. Indeed, the adjacency matrix of a digraph contains the information related to the incidence of the edges as well as their orientation. Any element of $\mathcal{A}$ indicates the number of edges starting from the vertex indexed by the row index and going to the vertex indexed by the column index. Directed graphs do not only inform on the topology but also on the direction of the edges between the vertices, therefore, they can be used to represent a succession of states or flows between vertices. In the example presented Figure \ref{eqnB.2}, each vertex is the initial vertex of two edges and the terminal vertex of two other edges.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=4,
+		vertex/.style={draw,circle,minimum size=0.75cm,inner sep=0pt},
+		arc/.style={draw=blue!#10,thick,->},
+		arc label/.style={fill=white,circle,font=\tiny,inner sep=1pt},
+		loop arc/.style={min distance=2mm,looseness=8}
+		]
+		\foreach [count=\i] \coord in
+							{(1.000,0.000),
+							 (0.809,0.588),
+							 (0.309,0.951),
+							 (-0.309,0.951),
+							 (-0.809,0.588),
+							 (-1.000,0.000),
+							 (-0.809,-0.588),
+							 (-0.309,-0.951),
+							 (0.309,-0.951),
+							 (0.809,-0.588)}
+							 {
+				\node[vertex] (p\i) at \coord {\i};
+		}
+		\directedgraphfromadj[bend left=5]{p}{{0,0,0,0,0,0,10,0,0,10},
+											{10,0,0,0,0,0,0,10,0,0},
+											{0,10,0,0,0,0,0,0,10,0},
+											{0,0,10,0,0,0,0,0,0,10},
+											{10,0,0,10,0,0,0,0,0,0},
+											{0,10,0,0,10,0,0,0,0,0},
+											{0,0,10,0,0,10,0,0,0,0},
+											{0,0,0,10,0,0,10,0,0,0},
+											{0,0,0,0,10,0,0,10,0,0},
+											{0,0,0,0,0,10,0,0,10,0}}{36}{30}{1}
+\end{tikzpicture}
+\caption{Example of a directed graph.}
+\label{figB.2}
+\end{figure}
+
+Consequently, in this specific case the binary entries of the adjacency matrix $\mathcal{A}$ are positioned in such a way that each row and each column sum to two. A row sums to two for two edges leaving a vertex and a column sums to two for two edges going to a vertex.
+
+\begin{equation} \label{eqnB.4}
+\mathcal{A}=
+\begin{bmatrix}
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 \\
+1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0
+\end{bmatrix}
+\end{equation}
+
+The representation of a directed graph by its incidence matrix is done by adding signs to the matrix entries. An entry is set to $-1$ if an edge leaves a vertex and to $1$ if an edge points towards a vertex, it is set to $0$ otherwise.
+
+\section{Weighted Graphs}
+
+In some cases it is important to associate each oriented edge of a directed graph to a weight. Weighted graphs are used to define a certain distance closeness between two given vertices and are therefore essential to analyse the flow between vertices. In the same way as for the simple graphs and the directed graphs, weighted graphs could be defined by their incidence or adjacency matrix.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=4,
+		vertex/.style={draw,circle,minimum size=0.75cm,inner sep=0pt},
+		arc/.style={draw=blue!#10,thick,->},
+		arc label/.style={fill=white,circle,font=\tiny,inner sep=1pt},
+		loop arc/.style={min distance=2mm}
+		]
+		\foreach [count=\i] \coord in
+							{(1.000,0.000),
+							 (0.809,0.588),
+							 (0.309,0.951),
+							 (-0.309,0.951),
+							 (-0.809,0.588),
+							 (-1.000,0.000),
+							 (-0.809,-0.588),
+							 (-0.309,-0.951),
+							 (0.309,-0.951),
+							 (0.809,-0.588)}
+							 {
+				\node[vertex] (p\i) at \coord {\i};
+		}
+		\weigthedgraphfromadj[bend left=10]{p}{{0,0,0,0,0,0,5,0,0,9},
+												 {2,0,0,0,0,0,0,2,0,0},
+												 {0,5,0,0,0,0,0,0,5,0},
+												 {0,0,7,0,0,0,0,0,0,10},
+												 {7,0,0,9,0,0,0,0,0,0},
+												 {0,6,0,0,2,0,0,0,0,0},
+												 {0,0,5,0,0,1,0,0,0,0},
+												 {0,0,0,5,0,0,2,0,0,0},
+												 {0,0,0,0,8,0,0,5,0,0},
+												 {0,0,0,0,0,3,0,0,8,0}}{36}{30}{1}
+\end{tikzpicture}
+\caption{Example of a weighted graph.}
+\label{figB.3}
+\end{figure}
+
+The adjacency matrix of a weighted graph has to contain the necessary information about the weights and the orientations of all the edges. A weight is located on the entry at the intersection of the row and the column, whose indexes are the index of the initial vertex and of the terminal vertex respectively. The entries of the incidence matrix are the weights of the edges with positive and negative signs, positive for an edge that is directed from a vertex and negative for an edge directed towards a vertex.
+
+\section{Multi-graphs}
+
+Finally, multi-graphs allow to have multiple weighted edges between two given vertices, also a given vertex can be connected to itself by a loop. Therefore, multi-graphs subsume the oriented and weighted graphs into one single type of graph. In the same way as before they can be represented by an adjacency matrix $\mathcal{A}$ as presented equation \eqref{eqnB.5} or by an incidence matrix. The multi-graph linked to the adjacency matrix $\mathcal{A}$ is shown in Figure \ref{figB.4}. The adjacency matrix contains the orientation of each edge as well as their respective weights, subsequently it is a square matrix linking the vertices with weights. The edges connect the vertices indexed by the row indexes to the ones indexed by the column indexes with the weight provided by the value of the matrix entry. The incidence matrix has the same definition as the incidence matrix for the weighted graphs, possibly including many parallel edges as well as loops.
+
+\begin{equation} \label{eqnB.5}
+\mathcal{A}=
+\begin{bmatrix}
+1 & 5 & 0 & 0 & 1 & 0 & 5 & 0 & 0 & 5 \\
+2 & 2 & 1 & 0 & 0 & 5 & 0 & 2 & 0 & 0 \\
+0 & 5 & 3 & 2 & 0 & 0 & 2 & 0 & 5 & 0 \\
+0 & 0 & 7 & 4 & 5 & 0 & 0 & 2 & 0 & 5 \\
+7 & 0 & 0 & 7 & 5 & 5 & 0 & 0 & 1 & 0 \\
+0 & 5 & 0 & 0 & 2 & 6 & 5 & 0 & 0 & 1 \\
+2 & 0 & 5 & 0 & 0 & 1 & 7 & 5 & 0 & 0 \\
+0 & 7 & 0 & 5 & 0 & 0 & 2 & 8 & 1 & 0 \\
+0 & 0 & 5 & 0 & 7 & 0 & 0 & 5 & 9 & 1 \\
+5 & 0 & 0 & 5 & 0 & 1 & 0 & 0 & 1 & 10
+\end{bmatrix}
+\end{equation}
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=4,
+		vertex/.style={draw,circle,minimum size=0.75cm,inner sep=0pt},
+		arc/.style={draw=blue!#10,thick,->},
+		arc label/.style={fill=white,circle,font=\tiny,inner sep=1pt},
+		loop arc/.style={loop,min distance=2mm}
+		]
+		\foreach [count=\i] \coord in
+							{(1.000,0.000),
+							 (0.809,0.588),
+							 (0.309,0.951),
+							 (-0.309,0.951),
+							 (-0.809,0.588),
+							 (-1.000,0.000),
+							 (-0.809,-0.588),
+							 (-0.309,-0.951),
+							 (0.309,-0.951),
+							 (0.809,-0.588)}
+							 {
+				\node[vertex] (p\i) at \coord {\i};
+		}
+		\weigthedgraphfromadj[bend left=10]{p}{{1,5,0,0,1,0,5,0,0,5},
+											 {2,2,1,0,0,5,0,2,0,0},
+											 {0,5,3,2,0,0,2,0,5,0},
+											 {0,0,7,4,5,0,0,2,0,5},
+											 {7,0,0,7,5,5,0,0,1,0},
+											 {0,5,0,0,2,6,5,0,0,1},
+											 {2,0,5,0,0,1,7,5,0,0},
+											 {0,7,0,5,0,0,2,8,1,0},
+											 {0,0,5,0,7,0,0,5,9,1},
+											 {5,0,0,5,0,1,0,0,1,10}}{36}{30}{1}
+\end{tikzpicture}
+\caption{Example of a weighted multi-graph.}
+\label{figB.4}
+\end{figure}
