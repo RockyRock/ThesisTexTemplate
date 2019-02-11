@@ -3,7 +3,7 @@
 Template to write Master thesis and doctoral dissertations, based on a custom class file "UoS-Thesis.cls".
 The possible modifications of the thesis template are explained in the following document.
 
-##Class File
+## Class File
 The thesis is written based on the class file "UoS-Thesis.cls" inheriting most properties from the class book.
 First of all, some custom packages can be added there using "\RequirePackage[myOptions]{my_package}".
 Secondly, the section called "PDF setup" contains some document information such as the document title, author and type as well as keywords, these fields can be customised to match the thesis information.
@@ -12,7 +12,7 @@ Finally, the rest of the class file defines renewed behaviour for environments a
 
 ## Front Matter
 
-###Title Page
+### Title Page
 The title page is straight forward and needs to be populated with the relevant thesis and author information.
 
 ### Declaration
@@ -35,16 +35,16 @@ The nomenclature defines all the notations used throughout the thesis and is org
 
 ## Main Matter
 
-###Chapters
+### Chapters
 Each chapter is included in a specific tex file, this allows to only compile a subset of chapters when the documents is being drafted.
 
 ## Appendix
 
-###Appendixes
+### Appendixes
 The appendix are similar to the chapters, except that they come in the appendix section. Similarly, only a subset of them can be included and compiled.
 
 ## Back Matter
 
-###Bibliography
+### Bibliography
 The back matter only includes a bibliography based on the IFAC bibliography style, using the full author name with the publication dates.
 
