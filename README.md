@@ -40,7 +40,7 @@ Each chapter is included in a specific tex file, this allows to only compile a s
 
 ## Appendix
 
-### Appendixes
+### Appendices
 The appendix are similar to the chapters, except that they come in the appendix section. Similarly, only a subset of them can be included and compiled.
 
 ## Back Matter
