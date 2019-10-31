@@ -28,7 +28,7 @@
 \RequirePackage{blindtext} % https://www.ctan.org/pkg/blindtext
 \RequirePackage{hyperref} % https://www.ctan.org/pkg/hyperref
 \RequirePackage[xindy]{glossaries-extra} % https://www.ctan.org/pkg/glossaries
-\RequirePackage{nomencl} % https://www.ctan.org/pkg/nomencl
+\RequirePackage[intoc]{nomencl} % https://www.ctan.org/pkg/nomencl
 \RequirePackage{etoolbox} % https://ctan.org/pkg/etoolbox
 \RequirePackage{xstring} % https://ctan.org/pkg/xstring
 \RequirePackage{amsmath} % https://ctan.org/pkg/amsmath
@@ -96,7 +96,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Nomenclature
 \renewcommand{\nomname}{Notation}
-\patchcmd{\thenomenclature}{\chapter*}{\chapter}{}{}
+%\patchcmd{\thenomenclature}{\chapter*}{\chapter}{}{}
 \setlength{\nomlabelwidth}{3cm}
 \setlength{\nomitemsep}{-\parsep}
 \newcommand{\nomenclheader}[1]{
