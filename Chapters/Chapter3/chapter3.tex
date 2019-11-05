@@ -14,11 +14,50 @@
 \begin{theorem}
 The Pythagoras theorem can be stated as follows,
 \begin{equation}
-a^{2} + b^2 = c^{2}, 
+a^{2} = b^2 + c^{2}, 
 \end{equation}
-where $c$ represents the hypotenuse of a rectangle triangle and $a$ and $b$ represent the other sides.
+where $a$ represents the hypotenuse of a rectangle triangle and $b$ and $b$ represent the other sides.
 \end{theorem}
 
 \begin{proof}
-The proof is given by Pythagoras in the documents here.
+The proof was given by Pythagoras and is available in the following paper \citep{Veljan2000}.
 \end{proof}
+
+Pythagoras theorem can be represented with a nice Tikz picture as presented in \ref{fig1} and available at this url: \\
+\url{http://www.texample.net/tikz/examples/pythagoras-triangle/}.
+
+\begin{figure}
+\centering
+\newcommand{\pythagwidth}{3cm}
+\newcommand{\pythagheight}{2cm}
+\begin{tikzpicture}
+  \coordinate [label={below right:$A$}] (A) at (0, 0);
+  \coordinate [label={above right:$B$}] (B) at (0, \pythagheight);
+  \coordinate [label={below left:$C$}] (C) at (-\pythagwidth, 0);
+
+  \coordinate (D1) at (-\pythagheight, \pythagheight + \pythagwidth);
+  \coordinate (D2) at (-\pythagheight - \pythagwidth, \pythagwidth);
+
+  \draw [very thick] (A) -- (C) -- (B) -- (A);
+
+  \newcommand{\ranglesize}{0.3cm}
+  \draw (A) -- ++ (0, \ranglesize) -- ++ (-\ranglesize, 0) -- ++ (0, -\ranglesize);
+
+  \draw [dashed] (A) -- node [below] {$b$} ++ (-\pythagwidth, 0)
+            -- node [right] {$b$} ++ (0, -\pythagwidth)
+            -- node [above] {$b$} ++ (\pythagwidth, 0)
+            -- node [left]  {$b$} ++ (0, \pythagwidth);
+
+  \draw [dashed] (A) -- node [right] {$c$} ++ (0, \pythagheight)
+            -- node [below] {$c$} ++ (\pythagheight, 0)
+            -- node [left]  {$c$} ++ (0, -\pythagheight)
+            -- node [above] {$c$} ++ (-\pythagheight, 0);
+
+  \draw [dashed] (C) -- node [above left]  {$a$} (B)
+                     -- node [below left]  {$a$} (D1)
+                     -- node [below right] {$a$} (D2)
+                     -- node [above right] {$a$} (C);
+\end{tikzpicture}
+\caption{Representation of the Pythagoras theorem.}
+\label{fig1}
+\end{figure}
